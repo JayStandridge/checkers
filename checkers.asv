@@ -1,22 +1,18 @@
 load('values.mat');
 load('strat.mat');
-%% Make sure to set done=0 if youre starting over
+%% Make sure to set done=1 if youre starting over
 %also run aiGen to generate new data before
 generations=1;%how many gens you want to run right now
-done=0;
-population = 2;
-children = 1;
+done=45;
+population = 13;
+children = 2;
 total_pop = population + children;
-d = 2; %number of turns to look ahead
 %I update done manually, Im storing the points data and need how many were
 %done previously to keep up with the indexes
 %%
-
-%record = zeros(population,generations)
-
 for i=1:generations
     
-    points=zeros(total_pop,1);
+    points=zeros(population + children,1);
     for j =1:children
         tempvar1=ceil(population*rand);
         tempvar2=mod(tempvar1+ceil((population -1)*rand),population);
@@ -32,12 +28,12 @@ for i=1:generations
             if j==k
                 continue
             end
-            point=fight(strat(j,:),strat(k,:),d);
+            point=fight(strat(j,:),strat(k,:));
             count=count+1;
             points(j)=point+points(j);
             points(k)=4-point+points(k);
             clc
-            fprintf('gen %d of %d\ngame %d of %d',i,generations,(j-1)*(total_pop-1)+count,(total_pop^2-total_pop));
+            fprintf('gen %d of %d\ngame %d of 210',i,generations,(j-1)*(total_pop-1+count);
             
         end
     end
@@ -50,7 +46,7 @@ for i=1:generations
     title(i)
     record(done+i,:)=points;
 end
-for i=1:population
+for i=1:populationms
     disp(points(i));
 end
 

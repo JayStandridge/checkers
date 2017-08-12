@@ -1,7 +1,7 @@
-function [ point1 ] = fight( strat1,strat2 )
+function [ point1 ] = fight( strat1,strat2,d )
 stalemate=50;
 board=[1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
-d=6;
+%d=2;
 displayBoard=0;
 if displayBoard
     dispBoard(board,0)

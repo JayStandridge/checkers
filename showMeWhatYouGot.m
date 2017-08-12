@@ -41,7 +41,7 @@ for i =1:size(branches,1)
         clear val
     end
 end
-point=find(path==max(path(path==max(path))),1);
+point=find(path==max(max(path)),1);
 point=mod(point,size(branches,1));
 if point==0
     point=size(branches,1);
