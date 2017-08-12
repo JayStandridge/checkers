@@ -11,14 +11,16 @@ for i=1:32
     y=-.8+.2*floor((i-1)/4);
     if board(i)==0
     elseif board(i)==1
-        plot(x,y,'or','markersize',20,'markerfacecolor','red')
+        plot(x,y,'or','markersize',30,'markerfacecolor','red')
     elseif board(i)==-1
-        plot(x,y,'ok','markersize',20,'markerfacecolor','black')
+        plot(x,y,'ok','markersize',30,'markerfacecolor','black')
     elseif board(i)==1.5
-        plot(x,y,'dr','markersize',20,'markerfacecolor','red')
+        plot(x,y,'dr','markersize',30,'markerfacecolor','red')
     elseif board(i)==-1.5
-        plot(x,y,'dk','markersize',20,'markerfacecolor','black')
+        plot(x,y,'dk','markersize',30,'markerfacecolor','black')
     end
+    text(x-.025,y+.1,num2str(i));
+    set(gca,'XTickLabel','','YTickLabel','');
 end
 axis([-.8 .6 -.8 .6])
 hold off
