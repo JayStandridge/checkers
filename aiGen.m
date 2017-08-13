@@ -1,3 +1,4 @@
-strat=.5*(rand(13,5046)-.5);
-save('strat.mat',strat)
-fclose(fid);  
+function[]= aiGen(int)
+strat=.5*(rand(int,5046)-.5);
+save('strat.mat',strat) 
+end

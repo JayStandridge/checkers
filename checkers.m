@@ -4,17 +4,19 @@ load('strat.mat');
 %also run aiGen to generate new data before
 generations=1;%how many gens you want to run right now
 done=0;
-population = 2;
-children = 1;
+population = 15;
+children = 15;
 total_pop = population + children;
 games=5;%number of opponets an AI will face a generation
-d = 2; %number of turns to look ahead
+d = 6; %number of turns to look ahead
 %I update done manually, Im storing the points data and need how many were
 %done previously to keep up with the indexes
 %%
 
 %record = zeros(population,generations)
-
+if done==0
+    aiGen(population);
+end
 for i=1:generations
     
     points=zeros(total_pop,1);
@@ -44,10 +46,9 @@ for i=1:generations
     strat(find(points==min(points),1),:)=[];
     points(find(points==min(points),1),:)=[];
     end
-    subplot(2,3,i)
+    subplot(8,8,i)
     hist(points)
     title(i)
-    record(done+i,:)=points;
 end
 for i=1:population
     disp(points(i));
