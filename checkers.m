@@ -2,7 +2,7 @@ load('values.mat');
 load('strat.mat');
 %% Make sure to set done=0 if youre starting over
 %also run aiGen to generate new data before
-generations=1;%how many gens you want to run right now
+generations=64;%how many gens you want to run right now
 done=0;
 population = 15;
 children = 15;
@@ -32,13 +32,13 @@ for i=1:generations
     for j=1:total_pop
         count=0;
         for k=1:games
-            tempvar3=ceil(population*rand);
+            tempvar3=ceil(total_pop*rand);
             point=fight(strat(j,:),strat(tempvar3,:),d);
             count=count+1;
             points(j)=point+points(j);
             points(tempvar3)=4-point+points(tempvar3);
             clc
-            fprintf('gen %d of %d\ngame %d of %d',i,generations,(j-1)*(total_pop-1)+count,(games*total_pop));
+            fprintf('gen %d of %d\ngame %d of %d',i,generations,games*(j-1)+count,(games*total_pop));
             
         end
     end
