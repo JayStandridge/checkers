@@ -7,6 +7,7 @@ done=0;
 population = 2;
 children = 1;
 total_pop = population + children;
+games=5;%number of opponets an AI will face a generation
 d = 2; %number of turns to look ahead
 %I update done manually, Im storing the points data and need how many were
 %done previously to keep up with the indexes
@@ -28,16 +29,14 @@ for i=1:generations
     end
     for j=1:total_pop
         count=0;
-        for k=1:total_pop
-            if j==k
-                continue
-            end
-            point=fight(strat(j,:),strat(k,:),d);
+        for k=1:games
+            tempvar3=ceil(population*rand);
+            point=fight(strat(j,:),strat(tempvar3,:),d);
             count=count+1;
             points(j)=point+points(j);
-            points(k)=4-point+points(k);
+            points(tempvar3)=4-point+points(tempvar3);
             clc
-            fprintf('gen %d of %d\ngame %d of %d',i,generations,(j-1)*(total_pop-1)+count,(total_pop^2-total_pop));
+            fprintf('gen %d of %d\ngame %d of %d',i,generations,(j-1)*(total_pop-1)+count,(games*total_pop));
             
         end
     end
