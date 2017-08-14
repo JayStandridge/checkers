@@ -1,19 +1,30 @@
 load('values.mat');
-load('strat.mat');
+%load('strat.mat');
 %% Make sure to set done=0 if youre starting over
 %also run aiGen to generate new data before
-generations=1;%how many gens you want to run right now
+generations=2;%how many gens you want to run right now
 done=0;
 population = 2;
 children = 1;
 total_pop = population + children;
-games=5;%number of opponets an AI will face a generation
-d = 2; %number of turns to look ahead
+games=2;%number of opponets an AI will face a generation
+d = 6; %number of turns to look ahead
 %I update done manually, Im storing the points data and need how many were
 %done previously to keep up with the indexes
 %%
+aiGen(population);
+Bit_Size      = 32;
+Genes_Total   = 5046;
+for i = 1:5046
+    Gene_Range(i,1) = -0.25;
+    Gene_Range(i,2) = 0.5;
+end
+Array_Size    = 5046;
+Mutation_Rate = .1;
+Mutation_Size = .1;
 
-%record = zeros(population,generations)
+%%
+record = zeros(population,generations);
 
 for i=1:generations
     
@@ -24,7 +35,9 @@ for i=1:generations
         if tempvar2==0
             tempvar2=ceil(population*rand);
         end
-        tempStrat=sex(strat(tempvar1,:),strat(tempvar2,:));
+        Mom = strat(tempvar1,:);
+        Dad = strat(tempvar2,:);
+        tempStrat=Mate(Mom, Dad, Bit_Size, Genes_Total, Gene_Range, Array_Size, Mutation_Rate, Mutation_Size);
         strat(population + j,:)=tempStrat;
     end
     for j=1:total_pop
