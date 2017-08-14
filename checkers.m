@@ -30,9 +30,10 @@ for i=1:generations
     
     points=zeros(total_pop,1);
     for j =1:children
-        tempvar1=ceil(population*rand);
-        tempvar2=mod(tempvar1+ceil((population -1)*rand),population);
-        if tempvar2==0
+        tempvar1=1;
+        tempvar2=1;
+        while tempvar1 == tempvar2
+            tempvar1=ceil(population*rand);
             tempvar2=ceil(population*rand);
         end
         Mom = strat(tempvar1,:);
@@ -60,7 +61,7 @@ for i=1:generations
     subplot(2,3,i)
     hist(points)
     title(i)
-    record(done+i,:)=points;
+    record(:,done+i)=points;
 end
 for i=1:population
     disp(points(i));
