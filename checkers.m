@@ -47,7 +47,10 @@ for i=1:generations
     for j=1:total_pop
         count=0;
         for k=1:games
-            tempvar3=ceil(population*rand);
+            tempvar3=ceil(total_pop*rand);
+            while tempvar3 == j
+                tempvar3=ceil(population*rand);
+            end
             [point(1),point(2)]=fight(strat(j,:),strat(tempvar3,:),d);
             count=count+1;
             points(j)=point(1)+points(j);
