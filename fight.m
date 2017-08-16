@@ -1,4 +1,4 @@
-function [ point1 ] = fight( strat1,strat2,d )
+function [ point1, point2 ] = fight( strat1,strat2,d )
 stalemate=50;
 board=[1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
 %d=2;
@@ -24,10 +24,12 @@ for i=1:stalemate
 %         imwrite(imind,cm,filename,'gif','WriteMode','append'); 
     end
     if isempty(board(board<0))
-        point1=4;
+        point1=1;
+        point2=-2;
         return
     elseif isempty(board(board>0))
-        point1=0.00;
+        point1=-2;
+        point2=1;
         return
     end
     board=switchSides(board);
@@ -41,13 +43,16 @@ for i=1:stalemate
 %         imwrite(imind,cm,filename,'gif','WriteMode','append');
     end
     if isempty(board(board<0))
-        point1=0.00;
+        point1=-2;
+        point2=1;
         return
     elseif isempty(board(board>0))
-        point1=4;
+        point1=1;
+        point2=-2;
         return
     end
     board=switchSides(board);
 end
-point1=2+.5*tanh(sum(board))^5;
+point1=0;
+point2=0;
 end
