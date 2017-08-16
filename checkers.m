@@ -4,10 +4,10 @@ load('values.mat');
 %also run aiGen to generate new data before
 generations=1;%how many gens you want to run right now
 done=0;
-population = 15;
-children = 15;
+population = 2;
+children = 1;
 total_pop = population + children;
-games=5;%number of opponets an AI will face a generation
+games=2;%number of opponets an AI will face a generation
 d = 6; %number of turns to look ahead
 %I update done manually, Im storing the points data and need how many were
 %done previously to keep up with the indexes
@@ -22,14 +22,15 @@ for i = 1:5046
     Gene_Range(i,2) = 0.5;
 end
 Array_Size    = 5046;
-
+Mutation_Rate_init = 0.25;
+Mutation_Size_init = 0.25;
 
 %%
 record = zeros(population,generations);
 
 for i=1:generations
-    Mutation_Rate = .25-.0024*i;
-    Mutation_Size = .25-.0024*i;
+    Mutation_Rate = Mutation_Rate_init-Mutation_Rate_init*i/generations;
+    Mutation_Size = Mutation_Rate_init-Mutation_Rate_init*i/generations;
     points=zeros(total_pop,1);
     for j =1:children
         tempvar1=1;
@@ -57,8 +58,8 @@ for i=1:generations
         end
     end
     for j =1:children
-    strat(find(points==min(points),1),:)=[];
-    points(find(points==min(points),1),:)=[];
+        strat(find(points==min(points),1),:)=[];
+        points(find(points==min(points),1),:)=[];
     end
 %     subplot(2,3,i)
 %     hist(points)
