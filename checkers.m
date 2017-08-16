@@ -24,14 +24,14 @@ end
 Array_Size    = 5046;
 Mutation_Rate_init = 0.25;
 Mutation_Size_init = 0.25;
-
+kVal=32;
 %%
 record = zeros(population,generations);
-
+eloRecord(1:total_pop)=1000;
 for i=1:generations
     Mutation_Rate = Mutation_Rate_init-Mutation_Rate_init*i/generations;
     Mutation_Size = Mutation_Rate_init-Mutation_Rate_init*i/generations;
-    points=zeros(total_pop,1);
+    eloRecord=zeros(total_pop,1);
     for j =1:children
         tempvar1=1;
         tempvar2=1;
@@ -44,25 +44,25 @@ for i=1:generations
         tempStrat=Mate(Mom, Dad, Bit_Size, Genes_Total, Gene_Range, Array_Size, Mutation_Rate, Mutation_Size);
         strat(population + j,:)=tempStrat;
     end
+    eloRecord(population+1:total_pop)=1000;
     for j=1:total_pop
         count=0;
         for k=1:games
             tempvar3=ceil(total_pop*rand);
             while tempvar3 == j
-                tempvar3=ceil(population*rand);
+                tempvar3=ceil(total_pop*rand);
             end
-            [point(1),point(2)]=fight(strat(j,:),strat(tempvar3,:),d);
+            aVal1=fight(strat(j,:),strat(tempvar3,:),d);
             count=count+1;
-            points(j)=point(1)+points(j);
-            points(tempvar3)=point(2)+points(tempvar3);
+            [eloRecord(j),eloRecord(tempVar3)]=elo(eloRecord(j),eloRecord(tempVar3),aVal1,kVal);
             clc
             fprintf('gen %d of %d\ngame %d of %d',i,generations,(j-1)*(games)+count,(games*total_pop));
             
         end
     end
     for j =1:children
-        strat(find(points==min(points),1),:)=[];
-        points(find(points==min(points),1),:)=[];
+        strat(find(eloRecord==min(eloRecord),1),:)=[];
+        eloRecord(find(eloRecord==min(eloRecord),1),:)=[];
     end
 %     subplot(2,3,i)
 %     hist(points)
@@ -70,7 +70,7 @@ for i=1:generations
     %record(:,done+i)=points;
 end
 for i=1:population
-    disp(points(i));
+    disp(eloRecord(i));
 end
 
 save('strat.mat');
