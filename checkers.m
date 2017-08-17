@@ -2,12 +2,12 @@ load('values.mat');
 %load('strat.mat');
 %% Make sure to set done=0 if youre starting over
 %also run aiGen to generate new data before
-generations=2;%how many gens you want to run right now
+generations=100;%how many gens you want to run right now
 done=0;
-population = 2;
-children = 1;
+population = 10;
+children = 5;
 total_pop = population + children;
-games=1;%number of opponets an AI will face a generation
+games=5;%number of opponets an AI will face a generation
 d = 6; %number of turns to look ahead
 %I update done manually, Im storing the points data and need how many were
 %done previously to keep up with the indexes
@@ -65,19 +65,16 @@ for i=1:generations
     end
     eloRecord(:,done+i)=eloNow;
     subplot(2,2,1)
-    plot(mean(eloRecord))
+    plot(movmean(mean(eloRecord),10))
     title('Average Elo vs Generations')
     subplot(2,2,2)
     plot(max(eloRecord))
     title('Max Elo vs Generations')
     subplot(2,2,3)
-    hold on
-    plot(eloRecord,'.k','MarkerSize',20)
     boxplot(eloRecord)
     title('Box Plot Vs Generations')
-    hold off
     subplot(2,2,4)
-    plot(std(eloRecord))
+    plot(movmean(std(eloRecord),10))
     title('Std Vs Generations')
     drawnow
 
